@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+</head>
+<style type="text/css">
+	h4{padding: 3%;}
+</style>
+<body>
+<div id="text1"></div>
+
+<div id="button1"></div>
+
+<h4 id="header1"></h4>
+<h4 id="header2"></h4>
+<h4 id="header3"></h4>
+<h4 id="header4"></h4>
+</body>
+<script type="text/javascript">
+"use strict";
+
+var kings;
+
+var t1 = document.createElement("input");
+t1.setAttribute("id", "input1"); 
+var divButton1 = document.getElementById("text1").appendChild(t1);
+
+
+var b1 = document.createElement("button");
+b1.setAttribute("type", "button"); 
+b1.setAttribute("class", "btn btn-primary"); 
+b1.addEventListener("click", go, false);
+var text3 = document.createTextNode("Go!"); 
+b1.appendChild(text3);
+var divButton1 = document.getElementById("button1").appendChild(b1);
+
+var requestURL = 'https://raw.githubusercontent.com/womackx/JSONDataRepo/master/kings.json';
+var request = new XMLHttpRequest();
+request.open('GET', requestURL);
+
+request.responseType = 'json'
+request.send();
+
+
+request.onload = function() {
+    kings = request.response;
+    console.log(kings);
+}
+
+function go() {
+	var valueText = document.getElementById("input1").value;
+
+	for (var i = 0; i < kings.length; i++) {
+		//kings[i]
+		if (kings[i].nm == valueText) {
+			document.getElementById("header1").innerHTML = "Name: " + kings[i].nm;
+			document.getElementById("header2").innerHTML = "City: " + kings[i].cty;
+			document.getElementById("header3").innerHTML = "House: " + kings[i].hse;
+			document.getElementById("header4").innerHTML = "Years: " + kings[i].yrs;
+		}
+	}
+}
+
+
+</script>
+</html>
