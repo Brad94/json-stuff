@@ -8,26 +8,65 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 </head>
 <style type="text/css">
-	h4{padding: 3%;}
+	h1{
+		text-align: center;
+		padding: 3%;
+	}
+
+	#text1,#button1{
+		text-align: center;
+		margin-top: 5%;
+	}
+	
+	#header1,#header2,#header3,#header4{
+		text-align: center;
+		padding: 5% 0% 5% 0%;
+	}
 </style>
 <body>
-<div id="text1"></div>
+<div class="container">
+	<h1>Monarchy Selector</h1>
+	<div class="row">
+	  <div class="col-6 col-md-4"></div>
+	  <div class="col-6 col-md-4">
+	  		<div id="text1"></div>
+	  </div>
+	  <div class="col-6 col-md-4"></div>
+	</div>
 
-<div id="button1"></div>
+	<div class="row">
+	  <div class="col-6 col-md-4"></div>
+	  <div class="col-6 col-md-4">
+	 		 <div id="button1"></div>
+	  </div>
+	  <div class="col-6 col-md-4"></div>
+	</div>
 
-<h4 id="header1"></h4>
-<h4 id="header2"></h4>
-<h4 id="header3"></h4>
-<h4 id="header4"></h4>
+	<div class="row">
+	  <div class="col-6 col-md-4"></div>
+	  <div class="col-6 col-md-4">
+		  <h2 id="header1"></h2>
+		  <h2 id="header2"></h2>
+		  <h2 id="header3"></h2>
+		  <h2 id="header4"></h2>
+	  </div>
+	  <div class="col-6 col-md-4"></div>
+	</div>
+
+
+
+</div>
 </body>
 <script type="text/javascript">
 "use strict";
 
 var kings;
 
-var t1 = document.createElement("input");
-t1.setAttribute("id", "input1"); 
-var divButton1 = document.getElementById("text1").appendChild(t1);
+var input1 = document.createElement("select");
+input1.setAttribute("id", "select1");    
+input1.setAttribute("class", "btn btn-secondary dropdown-toggle");
+var divInput1 = document.getElementById("text1").appendChild(input1);
+input1.options.add(new Option("","", true, true));
 
 
 var b1 = document.createElement("button");
@@ -48,15 +87,20 @@ request.send();
 
 request.onload = function() {
     kings = request.response;
-    console.log(kings);
+    for (var i = 0; i < kings.length; i++) {
+    	input1.options.add(new Option(kings[i].nm,i));
+
+    }
 }
 
 function go() {
-	var valueText = document.getElementById("input1").value;
+	var valueText = document.getElementById("select1");
+	var selected3 = valueText.options[valueText.selectedIndex].text;
+
 
 	for (var i = 0; i < kings.length; i++) {
-		//kings[i]
-		if (kings[i].nm == valueText) {
+		kings[i]
+		if (kings[i].nm == selected3) {
 			document.getElementById("header1").innerHTML = "Name: " + kings[i].nm;
 			document.getElementById("header2").innerHTML = "City: " + kings[i].cty;
 			document.getElementById("header3").innerHTML = "House: " + kings[i].hse;
